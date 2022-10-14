@@ -13,7 +13,9 @@ class API
      */
     public static function getProductId(array $productParams): string|null
     {
-        if (!isset($productParams['sku']) and !isset($productParams['barcode'])) return null;
+        if (!isset($productParams['sku']) and !isset($productParams['barcode'])) {
+            return null;
+        }
 
         $productId = $productParams['sku'] ?? $productParams['barcode'];
 
@@ -47,8 +49,12 @@ class API
      *
      * @return array
      */
-    public static function makeProductInputData(string $productId, string $title, string $category = '', string $imageURL = ''): array
-    {
+    public static function makeProductInputData(
+        string $productId,
+        string $title,
+        string $category = '',
+        string $imageURL = ''
+    ): array {
         return [
             'productId' => $productId,
             'owner' => config('api.owner'),
@@ -78,25 +84,6 @@ class API
                     'pickingAction' => 'NONE',
                 ],
             ],
-        ];
-    }
-
-    /**
-     * Makes a product description translation acceptable input data.
-     *
-     * @param string $productId
-     * @param string $description
-     * @param string $languageCode
-     *
-     * @return array
-     */
-    public static function makeProductDescriptionTranslationInputData(string $productId, string $description, string $languageCode = 'en_US'): array
-    {
-        return [
-            'productId' => $productId,
-            'owner' => config('api.owner'),
-            'languageCode' => $languageCode,
-            'description' => $description,
         ];
     }
 
@@ -216,7 +203,11 @@ class API
      */
     public static function checkProductCanBeStored(array $productParams): bool
     {
-        return (self::checkProductTypeIsAllowed($productParams) && self::checkProductIsCustomized($productParams) && self::checkProductFulfillsAutostore($productParams));
+        return (
+            self::checkProductTypeIsAllowed($productParams) &&
+            self::checkProductIsCustomized($productParams) &&
+            self::checkProductFulfillsAutostore($productParams)
+        );
     }
 
     /**

@@ -16,11 +16,11 @@ class APIServiceProvider extends ServiceProvider
     {
         $httpClient = \Illuminate\Support\Facades\Http::baseUrl(config('api.url'));
 
-        $this->app->singleton('product-api', function() use ($httpClient) {
+        $this->app->singleton('product-api', function () use ($httpClient) {
             return new ApiRequest(config('api.resources.product'), $httpClient);
         });
 
-        $this->app->singleton('order-api', function() use ($httpClient) {
+        $this->app->singleton('order-api', function () use ($httpClient) {
             return new ApiRequest(config('api.resources.order'), $httpClient);
         });
     }

@@ -16,13 +16,16 @@ class ApiRequest
     public function __construct(
         protected string $resource,
         protected \Illuminate\Http\Client\PendingRequest $httpClient
-    ) {}
+    ) {
+    }
 
     private function request(string $method, string $path, array $params = []): void
     {
         Log::debug(__METHOD__, ['PID' => getmypid(), 'method' => $method, 'path' => $path, 'params' => $params]);
 
-        if (!in_array($method, self::ALLOWED_METHODS)) return;
+        if (!in_array($method, self::ALLOWED_METHODS)) {
+            return;
+        }
 
         $request = Request::create([
             'path' => $path,
@@ -36,12 +39,19 @@ class ApiRequest
             $requestUpdate = ['status' => $response->status(), 'reason' => $response->reason()];
 
             // getting body on failing requests
-            if ($response->failed()) $requestUpdate['body'] = $response->body();
+            if ($response->failed()) {
+                $requestUpdate['body'] = $response->body();
+            }
 
             $request->fill($requestUpdate);
             $request->save();
 
-            Log::debug(__METHOD__, ['PID' => getmypid(), 'status' => $response->status(), 'reason' => $response->reason(), 'body' => $response->body()]);
+            Log::debug(__METHOD__, [
+                'PID' => getmypid(),
+                'status' => $response->status(),
+                'reason' => $response->reason(),
+                'body' => $response->body()
+            ]);
         } catch (\Exception $e) {
             Log::error(__METHOD__, ['code' => $e->getCode(), 'message' => $e->getMessage()]);
         }
