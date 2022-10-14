@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 class APITest extends TestCase
 {
     private array $product;
+    private array $order;
 
     protected function setUp(): void
     {
