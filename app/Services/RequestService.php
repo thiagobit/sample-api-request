@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Request;
 use App\Repositories\RequestRepositoryInterface;
 use Illuminate\Support\Facades\Log;
 
-class RequestService
+class RequestService implements RequestServiceInterface
 {
     private const ALLOWED_METHODS = [
         'post',
