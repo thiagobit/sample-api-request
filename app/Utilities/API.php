@@ -92,6 +92,7 @@ class API
      *
      * @param array $orderParams
      * @param array $orderLine
+     *
      * @return array
      */
     public static function makeOrderInputData(array $orderParams, array $orderLine): array
@@ -101,22 +102,25 @@ class API
         // additional optional fields
         $extraFields = self::makeOrderExtraInputData($orderParams);
 
-        return array_merge([
-            'orderId' => $orderId,
-            'owner' => config('api.owner'),
-            'orderType' => 'AutoStore',
-            'dispatchDate' => $orderParams['created_at'] ?? null,
-            'orderDate' => $orderParams['created_at'] ?? null,
-            'priority' => 10,
-            'shortReleasingAllowed' => false,
-            'shortAllocationAllowed' => false,
-            'capability' => [
-                [
-                    'capability' => 'Compile Order Pick',
+        return array_merge(
+            [
+                'orderId' => $orderId,
+                'owner' => config('api.owner'),
+                'orderType' => 'AutoStore',
+                'dispatchDate' => $orderParams['created_at'] ?? null,
+                'orderDate' => $orderParams['created_at'] ?? null,
+                'priority' => 10,
+                'shortReleasingAllowed' => false,
+                'shortAllocationAllowed' => false,
+                'capability' => [
+                    [
+                        'capability' => 'Compile Order Pick',
+                    ],
                 ],
+                'orderLine' => $orderLine,
             ],
-            'orderLine' => $orderLine,
-        ], $extraFields);
+            $extraFields
+        );
     }
 
     /**

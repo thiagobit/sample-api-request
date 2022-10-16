@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Listener of product-status-store event.
+     * Sends a product POST request to SynQ API.
      *
-     * @param  StoreUpdateProductRequest  $request
+     * @param StoreUpdateProductRequest $request
      *
      * @return JsonResponse
      */
@@ -35,9 +36,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Listener of product-status-update event.
+     * Sends a product PUT request to SynQ API.
      *
-     * @param  StoreUpdateProductRequest  $request
+     * @param StoreUpdateProductRequest $request
      *
      * @return JsonResponse
      */

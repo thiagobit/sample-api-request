@@ -19,20 +19,27 @@ class AppServiceProvider extends ServiceProvider
         $repository = new RequestRepositoryEloquent(new Request());
         $httpClient = \Illuminate\Support\Facades\Http::baseUrl(config('api.url'));
 
-        $this->app->singleton('product-api', function () use ($repository, $httpClient) {
-            return new RequestService(
-                config('api.resources.product'),
-                $repository,
-                $httpClient
-            );
-        });
+        $this->app->singleton(
+            'product-api',
+            function () use ($repository, $httpClient) {
+                return new RequestService(
+                    config('api.resources.product'),
+                    $repository,
+                    $httpClient
+                );
+            }
+        );
 
-        $this->app->singleton('order-api', function () use ($repository, $httpClient) {
-            return new RequestService(
-                config('api.resources.order'),
-                $repository,
-                $httpClient);
-        });
+        $this->app->singleton(
+            'order-api',
+            function () use ($repository, $httpClient) {
+                return new RequestService(
+                    config('api.resources.order'),
+                    $repository,
+                    $httpClient
+                );
+            }
+        );
     }
 
     /**

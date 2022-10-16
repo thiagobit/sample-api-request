@@ -20,10 +20,13 @@ class LogRequests
 
         // logging only failed requests
         if (!$response->isSuccessful()) {
-            \Illuminate\Support\Facades\Log::error('[Failed Request]', [
-                'request' => $request->input(),
-                'response' => $response->content(),
-            ]);
+            \Illuminate\Support\Facades\Log::error(
+                '[Failed Request]',
+                [
+                    'request' => $request->input(),
+                    'response' => $response->content(),
+                ]
+            );
         }
 
         return $response;

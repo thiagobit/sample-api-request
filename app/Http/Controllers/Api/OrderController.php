@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
     /**
-     * Listener of order-status-store event
+     * Listener of order-status-store event.
+     * Sends an order POST request to SynQ API.
      *
      * @param StoreOrderRequest $request
      *
@@ -46,6 +47,14 @@ class OrderController extends Controller
         return response()->json('', 201);
     }
 
+    /**
+     * Listener of order-status-delete event.
+     * Sends an order DELETE request to SynQ API.
+     *
+     * @param DeleteOrderRequest $request
+     *
+     * @return JsonResponse
+     */
     public function destroy(DeleteOrderRequest $request): JsonResponse
     {
         Log::debug(__METHOD__, ['PID' => getmypid(), 'request' => $request->detail]);
