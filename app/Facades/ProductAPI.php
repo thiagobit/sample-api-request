@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void update(string $id, array $params, string $path = '')
  * @method static void delete(string $id)
  *
- * @see \App\Services\ApiRequest
+ * @see \App\Services\RequestService
  */
 class ProductAPI extends Facade
 {

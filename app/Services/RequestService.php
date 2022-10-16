@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Request;
+use App\Repositories\RequestRepositoryInterface;
 use Illuminate\Support\Facades\Log;
 
-class ApiRequest
+class RequestService
 {
     private const ALLOWED_METHODS = [
         'post',
@@ -14,8 +15,9 @@ class ApiRequest
     ];
 
     public function __construct(
-        protected string $resource,
-        protected \Illuminate\Http\Client\PendingRequest $httpClient
+        private string $resource,
+        private RequestRepositoryInterface $repository,
+        private \Illuminate\Http\Client\PendingRequest $httpClient
     ) {
     }
 
@@ -27,7 +29,7 @@ class ApiRequest
             return;
         }
 
-        $request = Request::create([
+        $request = $this->repository->store([
             'path' => $path,
             'method' => $method,
             'params' => json_encode($params),
@@ -43,8 +45,7 @@ class ApiRequest
                 $requestUpdate['body'] = $response->body();
             }
 
-            $request->fill($requestUpdate);
-            $request->save();
+            $this->repository->update($request->id, $requestUpdate);
 
             Log::debug(__METHOD__, [
                 'PID' => getmypid(),
