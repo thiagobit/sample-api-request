@@ -10,12 +10,12 @@ class RequestRepositoryEloquent implements RequestRepositoryInterface
     {
     }
 
-    public function store(array $requestData)
+    public function store(array $requestData): Model
     {
         return $this->model->create($requestData);
     }
 
-    public function update(int $requestId, array $requestData)
+    public function update(int $requestId, array $requestData): bool
     {
         return $this->model->find($requestId)?->update($requestData);
     }
