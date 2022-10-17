@@ -12,7 +12,7 @@ interface RequestServiceInterface
         \Illuminate\Http\Client\PendingRequest $httpClient
     );
 
-    function create(array $params, string $path = ''): void;
-    function update(string $id, array $params, string $path = ''): void;
-    function delete(string $id): void;
+    public function create(array $params, string $path = ''): void;
+    public function update(string $id, array $params, string $path = ''): void;
+    public function delete(string $id): void;
 }

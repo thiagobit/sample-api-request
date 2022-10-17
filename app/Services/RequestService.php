@@ -29,7 +29,7 @@ class RequestService implements RequestServiceInterface
      *
      * @return void
      */
-    private function _request(string $method, string $path, array $params = []): void
+    private function request(string $method, string $path, array $params = []): void
     {
         Log::debug(__METHOD__, ['PID' => getmypid(), 'method' => $method, 'path' => $path, 'params' => $params]);
 
@@ -81,7 +81,7 @@ class RequestService implements RequestServiceInterface
      */
     public function create(array $params, string $path = ''): void
     {
-        $this->_request('post', $this->resource . $path, $params);
+        $this->request('post', $this->resource . $path, $params);
     }
 
     /**
@@ -95,7 +95,7 @@ class RequestService implements RequestServiceInterface
      */
     public function update(string $id, array $params, string $path = ''): void
     {
-        $this->_request('put', "{$this->resource}{$path}/" . config('api.owner') . "/{$id}", $params);
+        $this->request('put', "{$this->resource}{$path}/" . config('api.owner') . "/{$id}", $params);
     }
 
     /**
@@ -107,6 +107,6 @@ class RequestService implements RequestServiceInterface
      */
     public function delete(string $id): void
     {
-        $this->_request('delete', "{$this->resource}/" . config('api.owner') . "/{$id}");
+        $this->request('delete', "{$this->resource}/" . config('api.owner') . "/{$id}");
     }
 }
